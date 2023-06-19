@@ -4,6 +4,8 @@ import 'package:sales_flutter/LoginPage.dart';
 import 'package:sales_flutter/ProductFormScreen.dart';
 import 'dart:io';
 
+import 'package:sales_flutter/ProductListScreen.dart';
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -20,7 +22,7 @@ void main() {
     theme: ThemeData(primarySwatch: Colors.blue),
     initialRoute: '/',
     routes: {
-      '/': (context) => ComissionFormScreen(),
+      '/': (context) => ProductListScreen(),
     },
   ));
 }
