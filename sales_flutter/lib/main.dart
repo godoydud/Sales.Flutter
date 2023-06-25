@@ -28,7 +28,7 @@ void main() {
       '/home':(context) => HomePage(),
       '/products':(context) => ProductListScreen(),
       '/productsform':(context) => ProductFormScreen(),
-      '/comissions':(context) => CommissionListPage(),
+      '/comissions':(context) => ComissionListScreen(),
       '/comissionsform':(context) => ComissionFormScreen(),
     },
   ));
