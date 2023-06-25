@@ -50,7 +50,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     });
 
     final response = await http.put(
-      Uri.parse('$apiUrl/Product/${widget.product['id']}'),
+      Uri.parse('$apiUrl/Product/'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
