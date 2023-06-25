@@ -64,113 +64,102 @@ class _ProductListScreenState extends State<ProductListScreen> {
           },
         ),
       ),
-      body: Column(
-        children: [
-          ElevatedButton(
-              onPressed: (){
-                Navigator.pushNamed(context, '/productsform');
-              },
-              child: Text("Cadastro de Produtos"),
-            ),
-          ListView.builder(
-            itemCount: productList.length,
-            itemBuilder: (BuildContext context, int index) {
-              final product = productList[index];
-              final double price = product['price'].toDouble();
-              final int amount = product['amount'];
-              final double totalPrice = product['totalPrice'].toDouble();
-              final double commissionPrice = product['comissionPrice'].toDouble();
+      body: ListView.builder(
+        itemCount: productList.length,
+        itemBuilder: (BuildContext context, int index) {
+          final product = productList[index];
+          final double price = product['price'].toDouble();
+          final int amount = product['amount'];
+          final double totalPrice = product['totalPrice'].toDouble();
+          final double commissionPrice = product['comissionPrice'].toDouble();
 
-              return Card(
-                elevation: 2.0,
-                margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: ListTile(
-                  title: Text(product['name']),
-                  onTap: () => editProduct(index),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          text: 'Valor Und: ',
+          return Card(
+            elevation: 2.0,
+            margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: ListTile(
+              title: Text(product['name']),
+              onTap: () => editProduct(index),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: 'Valor Und: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'R\$ $price',
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.normal,
                             color: Colors.black87,
                           ),
-                          children: [
-                            TextSpan(
-                              text: 'R\$ $price',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ],
                         ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Quantidade: ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: '$amount',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Valor de Comissão: ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: 'R\$ $commissionPrice',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: 'Valor Final: ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: 'R\$ $totalPrice',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ],
+                  RichText(
+                    text: TextSpan(
+                      text: 'Quantidade: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: '$amount',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Valor de Comissão: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'R\$ $commissionPrice',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Valor Final: ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black87,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'R\$ $totalPrice',
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 }
-
