@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
       String username = _usernameController.text;
       String password = _passwordController.text;
       // Lógica de autenticação...
-      Navigator.pushReplacementNamed(context, '/welcome');
+      Navigator.pushNamed(context, '/home');
     }
   }
 
