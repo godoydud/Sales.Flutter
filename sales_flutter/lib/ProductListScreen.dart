@@ -52,6 +52,19 @@ class _ProductListScreenState extends State<ProductListScreen> {
     });
   }
 
+  void deleteProduct(int index) async {
+  final product = productList[index];
+  final response = await http.delete(Uri.parse('$apiUrl/Product'));
+  if (response.statusCode == 200) {
+    setState(() {
+      productList.removeAt(index);
+    });
+    print('Produto excluído com sucesso!');
+  } else {
+    print('Erro ao excluir o produto. Código de status: ${response.statusCode}');
+  }
+}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,7 +169,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   ),
                 ],
               ),
-            ),
+               trailing: IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () => deleteProduct(index),
+            )),
           );
         },
       ),
