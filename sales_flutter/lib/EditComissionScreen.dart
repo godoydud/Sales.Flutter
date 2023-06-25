@@ -32,7 +32,7 @@ class _EditComissionScreenState extends State<EditComissionScreen> {
     var body = json.encode({'name': name, 'percentage': int.parse(value)});
 
     final response = await http.put(
-      Uri.parse('$apiUrl/Comission'),
+      Uri.parse('$apiUrl/Comission/'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
@@ -69,7 +69,7 @@ class _EditComissionScreenState extends State<EditComissionScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                updateComission().then((_){
+                updateComission().then((_) {
                   Navigator.pushReplacementNamed(context, '/comissions');
                 });
               },
