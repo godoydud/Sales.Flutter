@@ -53,17 +53,23 @@ class _ProductListScreenState extends State<ProductListScreen> {
   }
 
   void deleteProduct(int index) async {
-  final product = productList[index];
-  final response = await http.delete(Uri.parse('$apiUrl/Product'));
-  if (response.statusCode == 200) {
-    setState(() {
-      productList.removeAt(index);
-    });
-    print('Produto excluído com sucesso!');
-  } else {
-    print('Erro ao excluir o produto. Código de status: ${response.statusCode}');
+    final product = productList[index];
+    print(product['id']);
+    final productId = product['id'];
+    final response = await http.delete(
+      Uri.parse('$apiUrl/Product/${product['id']}'),
+    );
+
+    if (response.statusCode == 200) {
+      setState(() {
+        productList.removeAt(index);
+      });
+      print('Produto excluído com sucesso!');
+    } else {
+      print(
+          'Erro ao excluir o produto. Código de status: ${response.statusCode}');
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -90,89 +96,89 @@ class _ProductListScreenState extends State<ProductListScreen> {
             elevation: 2.0,
             margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: ListTile(
-              title: Text(product['name']),
-              onTap: () => editProduct(index),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      text: 'Valor Und: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'R\$ $price',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black87,
-                          ),
+                title: Text(product['name']),
+                onTap: () => editProduct(index),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        text: 'Valor Und: ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
                         ),
-                      ],
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Quantidade: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: '$amount',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black87,
+                        children: [
+                          TextSpan(
+                            text: 'R\$ $price',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black87,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Valor de Comissão: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        ],
                       ),
-                      children: [
-                        TextSpan(
-                          text: 'R\$ $commissionPrice',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ],
                     ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: 'Valor Final: ',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                    RichText(
+                      text: TextSpan(
+                        text: 'Quantidade: ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: '$amount',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
                       ),
-                      children: [
-                        TextSpan(
-                          text: 'R\$ $totalPrice',
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ],
                     ),
-                  ),
-                ],
-              ),
-               trailing: IconButton(
-                icon: Icon(Icons.delete),
-                onPressed: () => deleteProduct(index),
-            )),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Valor de Comissão: ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'R\$ $commissionPrice',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Valor Final: ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'R\$ $totalPrice',
+                            style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () => deleteProduct(index),
+                )),
           );
         },
       ),
