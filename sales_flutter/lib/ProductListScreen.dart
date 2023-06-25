@@ -54,8 +54,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
   void deleteProduct(int index) async {
     final product = productList[index];
-    print(product['id']);
-    final productId = product['id'];
     final response = await http.delete(
       Uri.parse('$apiUrl/Product/${product['id']}'),
     );
