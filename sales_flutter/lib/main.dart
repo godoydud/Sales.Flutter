@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sales_flutter/ComissionFormScreen.dart';
+import 'package:sales_flutter/ComissionListScreen.dart';
+import 'package:sales_flutter/HomePage.dart';
 import 'package:sales_flutter/LoginPage.dart';
 import 'package:sales_flutter/ProductFormScreen.dart';
 import 'dart:io';
@@ -22,7 +24,12 @@ void main() {
     theme: ThemeData(primarySwatch: Colors.blue),
     initialRoute: '/',
     routes: {
-      '/': (context) => ProductListScreen(),
+      '/': (context) => LoginPage(),
+      '/home':(context) => HomePage(),
+      '/products':(context) => ProductListScreen(),
+      '/productsform':(context) => ProductFormScreen(),
+      '/comissions':(context) => CommissionListPage(),
+      '/comissionsform':(context) => ComissionFormScreen(),
     },
   ));
 }
