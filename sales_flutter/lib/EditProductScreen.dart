@@ -116,8 +116,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                saveProduct();
-                Navigator.pushReplacementNamed(context, '/products');
+                saveProduct().then((_) {
+                  Navigator.pushReplacementNamed(context, '/products');
+                });
               },
               child: Text('Salvar'),
             ),
