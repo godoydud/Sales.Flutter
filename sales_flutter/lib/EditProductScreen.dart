@@ -4,29 +4,16 @@ import 'package:http/http.dart' as http;
 
 const String apiUrl = 'https://10.0.2.2:7034/api';
 
-void main() {
-  runApp(MyApp());
-}
+class EditProductScreen extends StatefulWidget {
+  final dynamic product;
 
-class MyApp extends StatelessWidget {
+  EditProductScreen({required this.product});
+
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Meu Formulário de Produto',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: ProductFormScreen(),
-    );
-  }
+  _EditProductScreenState createState() => _EditProductScreenState();
 }
 
-class ProductFormScreen extends StatefulWidget {
-  @override
-  _ProductFormScreenState createState() => _ProductFormScreenState();
-}
-
-class _ProductFormScreenState extends State<ProductFormScreen> {
+class _EditProductScreenState extends State<EditProductScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController priceController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
@@ -38,6 +25,15 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   void initState() {
     super.initState();
     getCommissions();
+    initializeFields();
+  }
+
+  void initializeFields() {
+    final product = widget.product;
+    nameController.text = product['name'];
+    priceController.text = product['price'].toString();
+    quantityController.text = product['amount'].toString();
+    selectedComission = product['comission'];
   }
 
   Future<void> saveProduct() async {
@@ -46,28 +42,22 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
     final String quantity = quantityController.text;
 
     var body = json.encode({
+      'id': widget.product['id'],
       'name': name,
       'price': double.parse(price),
-      'amount': quantity,
+      'amount': int.parse(quantity),
       'comissionId': selectedComission['id']
     });
 
-    final response = await http.post(
-      Uri.parse('$apiUrl/Product'),
+    final response = await http.put(
+      Uri.parse('$apiUrl/Product/${widget.product['id']}'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
       print('Dados salvos com sucesso!');
-      setState(() {
-        nameController.text = '';
-        priceController.text = '';
-        quantityController.text = '';
-        selectedComission = null;
-      });
+      Navigator.pop(context);
     } else {
       print(
           'Erro ao salvar os dados. Código de status: ${response.statusCode}');
@@ -81,7 +71,6 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
       setState(() {
         comissionsList = jsonDecode(response.body);
       });
-      print(comissionsList);
     } else {
       print(
           'Erro ao buscar as comissões. Código de status: ${response.statusCode}');
@@ -92,7 +81,7 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cadastro de venda'),
+        title: Text('Editar Produto'),
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),

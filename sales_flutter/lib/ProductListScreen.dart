@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:sales_flutter/EditProductScreen.dart';
 import 'package:sales_flutter/ProductFormScreen.dart';
 
 const String apiUrl = 'https://10.0.2.2:7034/api';
@@ -39,7 +40,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => ProductFormScreen(),
+        builder: (context) => EditProductScreen(product: product),
       ),
     ).then((result) {
       if (result != null) {
