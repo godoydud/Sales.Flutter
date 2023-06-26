@@ -1,4 +1,8 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+const String apiUrl = 'https://10.0.2.2:7034/api';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,13 +14,27 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController _passwordController = TextEditingController();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void _login() {
-    if (_formKey.currentState!.validate()) {
-      // Realize a lógica de autenticação aqui
-      String username = _usernameController.text;
-      String password = _passwordController.text;
-      // Lógica de autenticação...
-      Navigator.pushNamed(context, '/home');
+  Future<void> login() async {
+    final String username = _usernameController.value.text;
+    final String password = _passwordController.value.text;
+
+    final response = await http.get(
+      Uri.parse('$apiUrl/User?username=$username&password=$password'),
+      headers: {"Content-Type": "application/json"},
+    );
+
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      print('Login realizado com sucesso!');
+      Navigator.pushReplacementNamed(context, '/home');
+    } else {
+      print('Erro ao realizar login. Código de status: ${response.statusCode}');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Falha no login. Verifique suas credenciais.'),
+        ),
+      );
     }
   }
 
@@ -54,20 +72,24 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: true,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Insira senha  ';
+                    return 'Insira a senha';
                   }
                   return null;
                 },
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: _login,
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    login();
+                  }
+                },
                 child: Text('Login'),
               ),
-              // Botao para cadastro de usuario
+              // Botão para cadastro de usuário
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/register');
+                  Navigator.pushNamed(context, '/registerUser');
                 },
                 child: Text('Register'),
               ),
