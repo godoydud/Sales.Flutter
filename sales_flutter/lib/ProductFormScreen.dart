@@ -127,8 +127,9 @@ class _ProductFormScreenState extends State<ProductFormScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                saveProduct();
-                Navigator.pushReplacementNamed(context, '/products');
+                saveProduct().then((_) {
+                  Navigator.pushReplacementNamed(context, '/products');
+                });
               },
               child: Text('Salvar'),
             ),

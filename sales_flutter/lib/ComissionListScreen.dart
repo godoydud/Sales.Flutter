@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sales_flutter/EditComissionScreen.dart';
 
-
 const String apiUrl = 'https://10.0.2.2:7034/api';
 
 class ComissionListScreen extends StatefulWidget {
@@ -80,6 +79,13 @@ class _ComissionListScreenState extends State<ComissionListScreen> {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/comissionsform');
+              },
+              icon: Icon(Icons.add))
+        ],
       ),
       body: ListView.builder(
         itemCount: comissionList.length,

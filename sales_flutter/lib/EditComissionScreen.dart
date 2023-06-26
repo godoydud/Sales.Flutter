@@ -29,7 +29,11 @@ class _EditComissionScreenState extends State<EditComissionScreen> {
     final String name = nameController.value.text;
     final String value = valueController.value.text;
 
-    var body = json.encode({'name': name, 'percentage': int.parse(value)});
+    var body = json.encode({
+      'id': widget.comission['id'],
+      'name': name,
+      'percentage': int.parse(value)
+    });
 
     final response = await http.put(
       Uri.parse('$apiUrl/Comission/'),

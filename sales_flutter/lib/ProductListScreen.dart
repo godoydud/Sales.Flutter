@@ -80,6 +80,13 @@ class _ProductListScreenState extends State<ProductListScreen> {
             Navigator.pop(context);
           },
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/productsform');
+              },
+              icon: Icon(Icons.add))
+        ],
       ),
       body: ListView.builder(
         itemCount: productList.length,

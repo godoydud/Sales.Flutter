@@ -75,9 +75,9 @@ class ComissionFormScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                saveComission(); // Chamada da função para salvar a comissão
-                Navigator.pushReplacementNamed(context, '/comissions');
-                print("passou onPress");
+                saveComission().then((_) {
+                  Navigator.pushReplacementNamed(context, '/comissions');
+                });
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.green,
