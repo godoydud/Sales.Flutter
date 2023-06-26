@@ -8,6 +8,8 @@ import 'dart:io';
 
 import 'package:sales_flutter/ProductListScreen.dart';
 
+import 'RegisterPage.dart';
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -25,11 +27,12 @@ void main() {
     initialRoute: '/',
     routes: {
       '/': (context) => LoginPage(),
-      '/home':(context) => HomePage(),
-      '/products':(context) => ProductListScreen(),
-      '/productsform':(context) => ProductFormScreen(),
-      '/comissions':(context) => ComissionListScreen(),
-      '/comissionsform':(context) => ComissionFormScreen(),
+      '/home': (context) => HomePage(),
+      '/products': (context) => ProductListScreen(),
+      '/productsform': (context) => ProductFormScreen(),
+      '/comissions': (context) => ComissionListScreen(),
+      '/comissionsform': (context) => ComissionFormScreen(),
+      '/registerUser': (context) => RegisterPage(),
     },
   ));
 }
